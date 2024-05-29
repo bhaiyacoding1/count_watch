@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Watch</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(165, 240, 125);
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+        .watch{
+            width: 300px;
+            height: auto;
+            background-color: black;
+            border-radius: 10px;
+        }
+        #count{
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            margin: 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 50px;
+        }
+        .buttons{
+            width: 100%;
+            height: 200px;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            grid-template-columns: repeat(2,1fr);
+            gap: 20px;
+            padding: 10px;
+        }
+        button{
+            padding: 5px;
+            border: none;
+            background-color: yellow;
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: transparent;
+            border: 1px solid yellow;
+            color: white;
+        }
+        #counttextmain{
+            color: white;
+            font-size: 20px;
+            text-align-last: center;
+            margin: 5px;
+            text-transform: capitalize;
+        }
+        #showtext{
+            width: 100%;
+            color: white;
+            font-size: 30px;
+            text-align: center;
+            text-transform: capitalize;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="watch">
+            <p id="count">0</p>
+            <div class="buttons">
+                <button id="start">Start</button>
+                <button id="restart">Re-Start</button>
+                <button id="Stop">Stop</button>
+                <button id="clear">Clear</button>
+                <button id="addcount">Addcount</button>
+            </div>
+            <div class="counttext">
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        let coundown = document.getElementById("count");
+        let counttextmain = document.querySelector(".counttext")
+        let startcount = 0;
+        let intervalid;
+
+        // start-function
+        const starttimer = () =>{
+            intervalid = setInterval(() => {
+                coundown.innerText = startcount++
+            },1000);
+        }
+
+        // stop function
+        const stoptimer = () =>{
+            clearInterval(intervalid)
+            addcounttimer();
+        }
+
+        // restart function
+        const restarttimer = () =>{
+            startcount = 0
+            coundown.innerText = startcount;
+            clearInterval(intervalid)
+            
+        }
+
+        // addcount function
+        const addcounttimer = () =>{
+           let pera = document.createElement("p");
+           pera.setAttribute("id","showtext");
+           pera.innerText =  `the stop time is ${startcount - 1}`;
+           counttextmain.append(pera);
+        }
+        // clearcount function
+        const cleartimer = () =>{
+            counttextmain.innerText =  "";
+            restarttimer(); 
+        }
+
+
+        //  start button
+        document.querySelector("#start").addEventListener("click", starttimer)
+
+
+        //  stop button
+        document.querySelector("#Stop").addEventListener("click", stoptimer)
+
+        //  restart button
+        document.querySelector("#restart").addEventListener("click", restarttimer)
+        
+        //  restart button
+        document.querySelector("#addcount").addEventListener("click", addcounttimer)
+
+        //  restart button
+        document.querySelector("#clear").addEventListener("click", cleartimer)
+    </script>
+</body>
+</html>
